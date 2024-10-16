@@ -1,0 +1,129 @@
+﻿@model DataAccessLayer.FormulaModels.FormulaParameterCreateViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Formula</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Başlangıçta sadece 1 parametre alanı gösteriliyor
+            ShowParameterFields(1);
+
+            // Dropdown değiştiğinde çalışacak olay
+            $('#parameterCountDropdown').change(function () {
+                var selectedCount = $(this).val();
+                ShowParameterFields(selectedCount);
+            });
+
+            // Parametre alanlarını seçilen sayıya göre gösterme fonksiyonu
+            function ShowParameterFields(count) {
+                // Tüm parametre kutucuklarını gizleyelim
+                $('.parameter-group').hide();
+
+                // Seçilen sayı kadar parametre kutucuklarını gösterelim
+                for (var i = 1; i <= count; i++) {
+                    $('#parameter-group-' + i).show();
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <h2>Formül Oluştur!!</h2>
+
+    @using (Html.BeginForm("CreateFormula", "Formula", FormMethod.Post))
+    {
+        <div>
+            @Html.LabelFor(m => m.FormulaName, "Formülün adı => ")
+            @Html.TextBoxFor(m => m.FormulaName)
+            @Html.ValidationMessageFor(m => m.FormulaName)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.FormulaText, "Formül => ")
+            @Html.TextBoxFor(m => m.FormulaText)
+            @Html.ValidationMessageFor(m => m.FormulaText)
+        </div>
+        @Html.Label("Örnek: ({0}*{1}) - {2}")
+        <hr />
+        <h4>Parametre Sayısı Seçiniz</h4>
+        <div>
+            @Html.Label("ParameterCount", "Kaç Parametre?")
+            @Html.DropDownListFor(m => m.Order1, Model.ParameterCount, "Seçiniz.", new { @class = "form-control", id = "parameterCountDropdown" })
+        </div>
+
+        <hr />
+
+        <!-- Parametre alanları - Başlangıçta sadece ilk alan görünüyor, diğerleri gizli -->
+        <div id="parameter-group-1" class="parameter-group">
+            <h4>1. Parametre</h4>
+            <div>
+                @Html.LabelFor(m => m.ParameterName1, "1. Parametre => ")
+                @Html.TextBoxFor(m => m.ParameterName1)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Order1, "Order = 1")
+            </div>
+        </div>
+
+        <div id="parameter-group-2" class="parameter-group" style="display: none;">
+            <h4>2. Parametre</h4>
+            <div>
+                @Html.LabelFor(m => m.ParameterName2, "2. Parametre => ")
+                @Html.TextBoxFor(m => m.ParameterName2)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Order2, "Order = 2")
+            </div>
+        </div>
+
+        <div id="parameter-group-3" class="parameter-group" style="display: none;">
+            <h4>3. Parametre</h4>
+            <div>
+                @Html.LabelFor(m => m.ParameterName3, "3. Parametre => ")
+                @Html.TextBoxFor(m => m.ParameterName3)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Order3, "Order = 3")
+            </div>
+        </div>
+
+        <div id="parameter-group-4" class="parameter-group" style="display: none;">
+            <h4>4. Parametre</h4>
+            <div>
+                @Html.LabelFor(m => m.ParameterName4, "4. Parametre => ")
+                @Html.TextBoxFor(m => m.ParameterName4)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Order4, "Order = 4")
+            </div>
+        </div>
+
+        <div id="parameter-group-5" class="parameter-group" style="display: none;">
+            <h4>5. Parametre</h4>
+            <div>
+                @Html.LabelFor(m => m.ParameterName5, "5. Parametre => ")
+                @Html.TextBoxFor(m => m.ParameterName5)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Order5, "Order = 5")
+            </div>
+        </div>
+
+        <hr />
+
+        <div>
+            <input type="submit" value="Oluştur" />
+        </div>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+@if (User.IsInRole("Admin"))
+{
+    @Html.DevExpress().NavBar(
+        settings =>
+        {
+            settings.Name = "navBar";
+            settings.Width = 120;
+            var group = settings.Groups.Add("Sayfalar");
+            group.Items.Add(item =>
+        {
+            item.Text = "Anasayfa";
+            item.NavigateUrl = Url.Action("MyView", "Home");
+        });
+        group.Items.Add(item =>
+        {
+            item.Text = "Kullanıcı Rol Paneli";
+            item.NavigateUrl = Url.Action("AssignRole", "RoleAdmin");
+        });
+        group.Items.Add(item =>
+        {
+            item.Text = "Rol Yetki Düzenleme Paneli";
+            item.NavigateUrl = Url.Action("ManageRoleShapePermissions", "RoleAdmin");
+        });
+        }).GetHtml()
+}
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+</body>
+</html>

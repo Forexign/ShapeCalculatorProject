@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    
+
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="ss">
+            <div class="col" style="display: flex; gap: 10px;">
+                @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "TextBox";
+                    settings.Properties.NullText = "hahaha";
+                }).GetHtml()
+                @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "z1";
+                    settings.Properties.NullText = "hahaha";
+                }).GetHtml()
+                @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "z2";
+                    settings.Properties.NullText = "hahaha";
+                }).GetHtml()
+                @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "z3";
+                    settings.Properties.NullText = "hahaha";
+                }).GetHtml()
+                @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "z4";
+                    settings.Properties.NullText = "hahaha";
+                }).GetHtml()
+            </div>
+
+            <div>
+
+
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "button1";
+                    settings.Text = "Disable Button";
+                    settings.Width = 120;
+                    settings.GroupName = "FakeGroup";
+                    settings.ClientSideEvents.CheckedChanged = "button1_CheckedChanged";
+                }).GetHtml()
+
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "button2";
+                    settings.EnableClientSideAPI = true;
+                }).GetHtml()
+
+                <script type="text/javascript">
+                    function button1_CheckedChanged(s, e) {
+                        if (s.GetChecked()) {
+                            button2.SetEnabled(false);
+                            s.SetText("Enable Button");
+                        } else {
+                            button2.SetEnabled(true);
+                            s.SetText("Disable Button");
+                        }
+                    }
+                </script>
+            </div>
+
+        </section>
+    </div>
+
+
+</main>

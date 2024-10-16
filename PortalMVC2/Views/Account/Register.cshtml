@@ -1,0 +1,153 @@
+﻿@model PortalMVC2.Models.RegisterModel
+@{
+    ViewBag.Title = "Kayıt Ol";
+}
+
+@using DevExpress.Web.Mvc
+
+<style>
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+    }
+
+    .register-form {
+        width: 100%;
+        max-width: 800px;
+        padding: 40px;
+        margin: auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+        .register-form h4 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .form-group {
+        display: flex;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+        .form-group label {
+            flex-basis: 60%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .form-group .input-container {
+            flex-grow: 1;
+        }
+
+    .btn-register {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+</style>
+<script>
+    function onCheckboxChanged(s, e) {
+        
+            if (s.GetChecked()) {
+                Password.GetInputElement().setAttribute("type", "text");
+                ConfirmPassword.GetInputElement().setAttribute("type", "text");
+            } else {
+                Password.GetInputElement().setAttribute("type", "password");   
+                ConfirmPassword.GetInputElement().setAttribute("type", "password"); 
+        }
+    }
+</script>
+
+<div class="register-container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal register-form">
+            <h4>Kayıt Ol</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                <div class="input-container">
+                    @Html.DevExpress().TextBoxFor(m => m.FirstName, settings => settings.AutoCompleteType = System.Web.UI.WebControls.AutoCompleteType.Disabled).GetHtml()
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                <div class="input-container">
+                    @Html.DevExpress().TextBoxFor(m => m.LastName, settings => settings.AutoCompleteType = System.Web.UI.WebControls.AutoCompleteType.Disabled).GetHtml()
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                <div class="input-container">
+                    @Html.DevExpress().TextBoxFor(m => m.Email, settings => settings.AutoCompleteType = System.Web.UI.WebControls.AutoCompleteType.Disabled).GetHtml()
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                <div class="input-container">
+                    @Html.DevExpress().TextBoxFor(m => m.Password, settings => { 
+                   settings.Properties.Password = true;
+                   settings.AutoCompleteType = System.Web.UI.WebControls.AutoCompleteType.Disabled;
+                   settings.Name = "Password";
+               }).GetHtml()
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                <div class="input-container">
+                    @Html.DevExpress().TextBoxFor(m => m.ConfirmPassword, settings => {
+                   settings.Properties.Password = true;
+                   settings.AutoCompleteType = System.Web.UI.WebControls.AutoCompleteType.Disabled;
+                   settings.Name = "ConfirmPassword";
+               }).GetHtml()
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group checkbox-container">
+                <div class="checkbox-inline">
+                    @Html.DevExpress().CheckBox(settings =>
+               {
+                   settings.Name = "checkBox1";
+                   settings.Text = "Şifreyi göster";
+                   settings.Properties.ClientSideEvents.CheckedChanged = "function(s, e) { onCheckboxChanged(s, e); }";
+               }).GetHtml()
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "SubmitButton";
+                    settings.Text = "Kayıt Ol";
+                    settings.UseSubmitBehavior = true;
+                    settings.Styles.Style.CssClass = "btn-register";
+                }).GetHtml()
+            </div>
+
+        </div>
+        <div class="form-group">
+            <p class="login-link">
+                Zaten hesabınız var mı? <a href="@Url.Action("Login", "Account")">Giriş Yap</a>
+            </p>
+        </div>
+    }
+</div>

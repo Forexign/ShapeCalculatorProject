@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+@Html.DevExpress().Label(settings =>
+    {
+    settings.Name = "NameSurname";
+    settings.Text = "Hoşgeldin, " + ViewBag.Name;
+    settings.Attributes.CssStyle.Add("font-size", "45px");
+    }).GetHtml()
+<div style="text-align: right; display: flex; justify-content: flex-end; align-items: center;">
+
+    @using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "Logout";
+            settings.Text = "Çıkış Yap";
+            settings.UseSubmitBehavior = true;
+            settings.RenderMode = ButtonRenderMode.Danger;
+        }).Render();
+    }
+</div>
+
+<hr />
+@Html.Action("TotalGridViewPartial", "Home")
+
+@if (!User.IsInRole("DataInserter"))
+{
+    <div style="text-align: right; margin-top: 10px;">
+        @using (Html.BeginForm("SendAction", "Home", FormMethod.Post))
+        {
+            Html.DevExpress().Button(settings =>
+            {
+                settings.Name = "Send";
+                settings.Text = "Hesapla";
+                settings.UseSubmitBehavior = true;
+                settings.Styles.Style.BackColor = System.Drawing.Color.CadetBlue;
+            }).Render();
+        }
+    </div>
+}

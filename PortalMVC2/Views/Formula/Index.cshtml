@@ -1,0 +1,23 @@
+﻿@model List<DataAccessLayer.FormulaModels.Formula>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formula Dropdown</title>
+</head>
+<body>
+    <select>
+        @foreach (var item in Model)
+        {
+            <option value="@item.FormulaID">@item.FormulaName</option>
+        }
+    </select>
+</body>
+</html>
+
+
+@Html.Action("GridViewPartial", "Formula")
+

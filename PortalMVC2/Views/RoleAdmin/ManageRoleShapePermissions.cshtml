@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+@Html.DevExpress().Label(settings =>
+    {
+    settings.Name = "Label";
+    settings.Text = "Rol Yetki Düzenleme Paneli";
+    settings.Attributes.CssStyle.Add("font-size", "45px");
+    }).GetHtml()
+
+<div style="text-align: right; display: flex; justify-content: flex-end; align-items: center;">
+    @using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "Logout";
+            settings.Text = "Çıkış Yap";
+            settings.UseSubmitBehavior = true;
+            settings.RenderMode = ButtonRenderMode.Danger;
+        }).Render();
+    }
+</div>
+<hr />
+
+@Html.Action("GridViewPartial", "RoleAdmin")
+

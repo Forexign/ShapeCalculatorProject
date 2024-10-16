@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EC91AF24-C48A-4B81-85C2-2E070269DCA0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccessLayer</RootNamespace>
+    <AssemblyName>DataAccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\WebApplication9\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbContext\ApplicationDbContext.cs" />
+    <Compile Include="FormulaModels\Formula.cs" />
+    <Compile Include="FormulaModels\FormulaInput.cs" />
+    <Compile Include="FormulaModels\FormulaInputGridViewModel.cs" />
+    <Compile Include="FormulaModels\FormulaParameter.cs" />
+    <Compile Include="FormulaModels\FormulaParameterCreateViewModel.cs" />
+    <Compile Include="FormulaModels\FormulaParameterInput.cs" />
+    <Compile Include="FormulaModels\FormulaResult.cs" />
+    <Compile Include="Infrastructure\KisaKenarUzunKenarValidationAttribute.cs" />
+    <Compile Include="Migrations\202407041209422_first.cs" />
+    <Compile Include="Migrations\202407041209422_first.Designer.cs">
+      <DependentUpon>202407041209422_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202407090842396_addingUserIdToTables.cs" />
+    <Compile Include="Migrations\202407090842396_addingUserIdToTables.Designer.cs">
+      <DependentUpon>202407090842396_addingUserIdToTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202407091012529_empty.cs" />
+    <Compile Include="Migrations\202407091012529_empty.Designer.cs">
+      <DependentUpon>202407091012529_empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202407091138226_addedTimeShapeResult.cs" />
+    <Compile Include="Migrations\202407091138226_addedTimeShapeResult.Designer.cs">
+      <DependentUpon>202407091138226_addedTimeShapeResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408140634583_apilogAdded.cs" />
+    <Compile Include="Migrations\202408140634583_apilogAdded.Designer.cs">
+      <DependentUpon>202408140634583_apilogAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408141055556_ApiTableAdded.cs" />
+    <Compile Include="Migrations\202408141055556_ApiTableAdded.Designer.cs">
+      <DependentUpon>202408141055556_ApiTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408141111490_addedNameToApis.cs" />
+    <Compile Include="Migrations\202408141111490_addedNameToApis.Designer.cs">
+      <DependentUpon>202408141111490_addedNameToApis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408211143201_PermRoleShape.cs" />
+    <Compile Include="Migrations\202408211143201_PermRoleShape.Designer.cs">
+      <DependentUpon>202408211143201_PermRoleShape.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408220820307_RoleActionPermission.cs" />
+    <Compile Include="Migrations\202408220820307_RoleActionPermission.Designer.cs">
+      <DependentUpon>202408220820307_RoleActionPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408221112502_ShapeTypeTableAdded.cs" />
+    <Compile Include="Migrations\202408221112502_ShapeTypeTableAdded.Designer.cs">
+      <DependentUpon>202408221112502_ShapeTypeTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408221128012_delete.cs" />
+    <Compile Include="Migrations\202408221128012_delete.Designer.cs">
+      <DependentUpon>202408221128012_delete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408221146175_renameTables.cs" />
+    <Compile Include="Migrations\202408221146175_renameTables.Designer.cs">
+      <DependentUpon>202408221146175_renameTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408221357375_AddedShapeTypesTable.cs" />
+    <Compile Include="Migrations\202408221357375_AddedShapeTypesTable.Designer.cs">
+      <DependentUpon>202408221357375_AddedShapeTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409051241285_RoleNameColumnChangedToId.cs" />
+    <Compile Include="Migrations\202409051241285_RoleNameColumnChangedToId.Designer.cs">
+      <DependentUpon>202409051241285_RoleNameColumnChangedToId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Api.cs" />
+    <Compile Include="Models\ApiLog.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\InputAndResultViewModel.cs" />
+    <Compile Include="Models\Inputs.cs" />
+    <Compile Include="Models\RoleActionPermission.cs" />
+    <Compile Include="Models\RoleShapePermission.cs" />
+    <Compile Include="Models\ShapeResult.cs" />
+    <Compile Include="Models\ShapeType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202407041209422_first.resx">
+      <DependentUpon>202407041209422_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407090842396_addingUserIdToTables.resx">
+      <DependentUpon>202407090842396_addingUserIdToTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407091012529_empty.resx">
+      <DependentUpon>202407091012529_empty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407091138226_addedTimeShapeResult.resx">
+      <DependentUpon>202407091138226_addedTimeShapeResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408140634583_apilogAdded.resx">
+      <DependentUpon>202408140634583_apilogAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408141055556_ApiTableAdded.resx">
+      <DependentUpon>202408141055556_ApiTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408141111490_addedNameToApis.resx">
+      <DependentUpon>202408141111490_addedNameToApis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408211143201_PermRoleShape.resx">
+      <DependentUpon>202408211143201_PermRoleShape.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408220820307_RoleActionPermission.resx">
+      <DependentUpon>202408220820307_RoleActionPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408221112502_ShapeTypeTableAdded.resx">
+      <DependentUpon>202408221112502_ShapeTypeTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408221128012_delete.resx">
+      <DependentUpon>202408221128012_delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408221146175_renameTables.resx">
+      <DependentUpon>202408221146175_renameTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408221357375_AddedShapeTypesTable.resx">
+      <DependentUpon>202408221357375_AddedShapeTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409051241285_RoleNameColumnChangedToId.resx">
+      <DependentUpon>202409051241285_RoleNameColumnChangedToId.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{57B12908-8CF7-46D3-8199-5B7196A90A84}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\WebApplication9\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+</Project>

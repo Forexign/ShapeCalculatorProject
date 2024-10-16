@@ -1,0 +1,72 @@
+﻿
+@{
+    var AllRoles = (List<string>)ViewBag.AllRoles;
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView2";
+        settings.CallbackRouteValues = new { Controller = "RoleAdmin", Action = "GridView2Partial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "RoleAdmin", Action = "GridView2PartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "RoleAdmin", Action = "GridView2PartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "RoleAdmin", Action = "GridView2PartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "UserId";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.SettingsText.CommandEdit = "Düzenle";
+
+        settings.SettingsPager.Summary.Text = "Sayfa {0}, Toplam {1} Sayfa (Toplam: {2} Adet Veri)";
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            MVCxGridView gridView = sender as MVCxGridView;
+            gridView.SettingsText.CommandCancel = "İptal";
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.CommandUpdate = "Kaydet";
+            }
+            else
+                gridView.SettingsText.CommandUpdate = "Güncelle";
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UserName";
+            column.ReadOnly = true;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CurrentRole";
+            column.Caption = "Rol";
+            column.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = AllRoles;
+            });
+        });
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

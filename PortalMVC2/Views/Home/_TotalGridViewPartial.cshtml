@@ -1,0 +1,217 @@
+﻿@{
+    var AllowedShapes = PortalMVC2.SessionManager.SessionDataManager.CurrentUser.AllowedShapes as List<string>;
+
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "TotalGridView";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "TotalGridViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "TotalGridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "TotalGridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "TotalGridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.SettingsText.PopupEditFormCaption = "Yeni şekil verisi giriniz.";
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SettingsText.ConfirmDelete = "Silmek istediğinize emin misiniz? Bu işlem eğer hesaplanmışsa Hesaplamalar tablosundan da aynı satırı silecektir.";
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.SettingsText.CommandEdit = "Düzenle";
+        settings.SettingsText.CommandNew = "Ekle";
+        settings.SettingsText.CommandDelete = "Sil";
+
+        settings.BeforeGetCallbackResult = (sender, e) =>
+        {
+            MVCxGridView gridView = sender as MVCxGridView;
+            gridView.SettingsText.CommandCancel = "İptal";
+            if (gridView.IsNewRowEditing)
+            {
+                gridView.SettingsText.CommandUpdate = "Kaydet";
+            }
+            else
+                gridView.SettingsText.CommandUpdate = "Güncelle";
+        };
+
+        settings.SettingsPager.Summary.Text = "Sayfa {0}, Toplam {1} Sayfa (Toplam: {2} Adet Veri)";
+
+        settings.KeyFieldName = "Id";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Id";
+            column.Caption = "ID";
+            column.ReadOnly = true;
+            column.Visible = false;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ShapeType";
+            column.Caption = "Şekil";
+            column.EditorProperties().ComboBox(p =>
+            {
+                p.DataSource = AllowedShapes;
+                p.ClientSideEvents.SelectedIndexChanged = "onShapeTypeChanged";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Kenar";
+            column.Caption = "Kenar";
+            column.EditorProperties().TextBox(p =>
+            {
+                p.ClientInstanceName = "Kenar";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "KisaKenar";
+            column.Caption = "Kısa Kenar";
+            column.EditorProperties().TextBox(p =>
+            {
+                p.ClientInstanceName = "KisaKenar";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UzunKenar";
+            column.Caption = "Uzun Kenar";
+            column.EditorProperties().TextBox(p =>
+            {
+                p.ClientInstanceName = "UzunKenar";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Yukseklik";
+            column.Caption = "Yükseklik";
+            column.EditorProperties().TextBox(p =>
+            {
+                p.ClientInstanceName = "Yukseklik";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Yaricap";
+            column.Caption = "Yarıçap";
+            column.EditorProperties().TextBox(p =>
+            {
+                p.ClientInstanceName = "Yaricap";
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "HesaplandiMi";
+            column.Caption = "Hesaplandı mı?";
+            column.ReadOnly = true;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CreatedDate";
+            column.Caption = "Oluşturulma Tarihi";
+            column.ReadOnly = true;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "UserId";
+            column.Visible = false;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Area";
+            column.Caption = "Alan";
+            column.ReadOnly = true;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Volume";
+            column.Caption = "Hacim";
+            column.ReadOnly = true;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CreatedTime";
+            column.Caption = "Hesaplanma Zamanı";
+            column.ReadOnly = true;
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+        });
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+
+<script>
+    function onShapeTypeChanged(s, e) {
+        var shapeType = s.GetValue();
+        var kenar = ASPxClientTextBox.Cast("Kenar");
+        var kisaKenar = ASPxClientTextBox.Cast("KisaKenar");
+        var uzunKenar = ASPxClientTextBox.Cast("UzunKenar");
+        var yukseklik = ASPxClientTextBox.Cast("Yukseklik");
+        var yaricap = ASPxClientTextBox.Cast("Yaricap");
+
+        kenar.SetValue(null);
+        kisaKenar.SetValue(null);
+        uzunKenar.SetValue(null);
+        yukseklik.SetValue(null);
+        yaricap.SetValue(null);
+
+        kenar.SetVisible(false);
+        kisaKenar.SetVisible(false);
+        uzunKenar.SetVisible(false);
+        yukseklik.SetVisible(false);
+        yaricap.SetVisible(false);
+
+        switch (shapeType) {
+            case "Kare":
+                kenar.SetVisible(true);
+                break;
+            case "Dikdortgen":
+                kisaKenar.SetVisible(true);
+                uzunKenar.SetVisible(true);
+                break;
+            case "Daire":
+                yaricap.SetVisible(true);
+                break;
+            case "Silindir":
+                yaricap.SetVisible(true);
+                yukseklik.SetVisible(true);
+                break;
+            case "Kup":
+                kenar.SetVisible(true);
+                break;
+        }
+    }
+</script>

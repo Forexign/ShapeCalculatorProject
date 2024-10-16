@@ -1,0 +1,52 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "ShapeResultGridView";
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "ShapeResultGridViewPartial" };
+
+
+        settings.KeyFieldName = "Id";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "ShapeType";
+            column.Caption = "Şekil Türü";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Area";
+            column.Caption = "Alan";
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Volume";
+            column.Caption = "Hacim";
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "CreatedTime";
+            column.Caption = "Hesaplanma zamanı";
+            column.ReadOnly = true;
+            column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+        });
+    });
+
+}
+@grid.Bind(Model).GetHtml()
