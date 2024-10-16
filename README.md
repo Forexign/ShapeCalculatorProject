@@ -1,6 +1,8 @@
 All the UI elements used in this project is from DevExpress.
 
 Login & Register Pages
+
+
 ![KayıtSayfası](https://github.com/user-attachments/assets/58737fa9-cbf0-4546-af9d-ff5916984f2b)
 ![LoginPage](https://github.com/user-attachments/assets/3bd529d1-d6f4-4912-ad52-a044c7f501cc)
 
